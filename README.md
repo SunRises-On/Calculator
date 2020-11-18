@@ -9,6 +9,7 @@ import javax.swing.*;
 class CalcDeployment extends JFrame implements ActionListener{
 //create a frame
 	static JFrame frame1;
+
 	//create a textfield
 	static JTextField field1;
 	// operands
@@ -35,7 +36,8 @@ class CalcDeployment extends JFrame implements ActionListener{
 		// create a textfield
 		field1 = new JTextField();
 		field1.setSize(180,20);
-		frame1.add(field1);
+		//added borderlayout north
+		frame1.add(field1,BorderLayout.NORTH);
 		//frame1.add(field1);
 		// non editable textfield
 		field1.setEditable(false);
@@ -75,6 +77,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 		//create a pannel.
 		JPanel panel1 = new JPanel();
 		//add action listeners
+
 		button0.addActionListener(calc);
 		button1.addActionListener(calc);
 		button2.addActionListener(calc);
@@ -115,7 +118,8 @@ class CalcDeployment extends JFrame implements ActionListener{
 		//setbackground color
 		panel1.setBackground(Color.cyan);
 		//add panel to frame
-		frame1.add(panel1);
+		//////added borderlayout.center
+		frame1.add(panel1,BorderLayout.CENTER);
 		frame1.setSize(200, 220);
 		//pack frame to component preferred size
 		//frame1.pack();
@@ -132,6 +136,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 		//if the variable is a number
 		if (((s.charAt(0) >= '0' && s.charAt(0) <= '9') || (s.charAt(0) == '.'))){
 			// if operand is present then add to second num
+			
 			if( !s1.equals("")) {
 				s2 = s2 + s;
 			}
