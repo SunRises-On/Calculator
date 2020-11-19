@@ -52,7 +52,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 		//create buttons 
 		JButton button0, button1, button2, button3, button4,
 		button5, button6, button7, button8, button9, beq1, bplus,
-		bsub, bdivide, bmult, beq, be;
+		bsub, bdivide, bmult, beq, bce;
 		
 		button0 = new JButton("0");
 		button1 = new JButton("1");
@@ -73,7 +73,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 		bmult = new JButton("*");
 		beq = new JButton("C");
 		// create . button
-		be = new JButton(".");
+		bce = new JButton("AC");
 		//create a pannel.
 		JPanel panel1 = new JPanel();
 		//add action listeners
@@ -95,7 +95,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 		bdivide.addActionListener(calc);
 		bmult.addActionListener(calc);
 		beq.addActionListener(calc);
-		be.addActionListener(calc);
+		bce.addActionListener(calc);
 		//add to panel
 		panel1.add(button0);
 		panel1.add(button1);
@@ -113,7 +113,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 		panel1.add(bdivide);
 		panel1.add(bmult);
 		panel1.add(beq);
-		panel1.add(be);
+		panel1.add(bce);
 		
 		//setbackground color
 		panel1.setBackground(Color.cyan);
@@ -144,6 +144,8 @@ class CalcDeployment extends JFrame implements ActionListener{
 					}
 					else {
 						s2 = s2 + s;
+						// set the value of text
+						field1.setText(s2);
 					}
 				}
 				else {
@@ -153,17 +155,29 @@ class CalcDeployment extends JFrame implements ActionListener{
 					}
 					else{
 						s0 = s0 +s;
+						field1.setText(s0);
 					}
 				}
-				// set the value of text
-				field1.setText(s0 + s1 + s2);
 			
 		}
 		else if(s.charAt(0) == 'C') {
 			//clear one letter
-			s0 = s1 = s2 = "";
+
+			if( !s2.equals("")) {
+				s2 = s1= "";
+				field1.setText(s0);
+			}
+			else {
+				s0= s1= ""; 
+				field1.setText("0");
+			}
 			//set the value of text
-			field1.setText(s0 + s1 + s2);
+		}
+		else if(s.charAt(0) == 'A') {
+			//clear all letters
+			s0 = s1 = s2 = "";
+			//set the value of txt
+			field1.setText("0");
 		}
 		else if (s.charAt(0) == '=') {
 			
@@ -186,10 +200,11 @@ class CalcDeployment extends JFrame implements ActionListener{
 			}
 			var2 = Double.toString(var);
 			if(var2.length() < 8 ) {
-				// set the value of text
-				field1.setText(s0 + s1 + s2 + "=" + var);
-				// convert it to string
+				// set the value of text 
+				// inner equation is s0 + s1 + s2 = var
+				// convert it to string s0 = var
 				s0 = Double.toString(var);
+				field1.setText(s0);
 				s1= s2 = "";
 			}
 			else {
@@ -205,6 +220,7 @@ class CalcDeployment extends JFrame implements ActionListener{
 			else {
 				double var;
 				// store the value in 1st
+				
 				if(s1.equals("+")) {
 					var = (Double.parseDouble(s0)+ Double.parseDouble(s2));
 				}
@@ -224,9 +240,16 @@ class CalcDeployment extends JFrame implements ActionListener{
 				s1 = s;
 				// make the operand blank
 				s2 = "";
+				// set the value of text
+				// if s1 is not empty show s2
+				if( !s1.equals("")) {
+					field1.setText(s2);
+				// if s1 is empty show s1
+				}
+				else {
+					field1.setText(s0);
+				}
 			}
-			// set the value of text
-			field1.setText(s0 + s1 + s2);
 		}
 	}
 
