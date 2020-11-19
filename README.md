@@ -136,15 +136,28 @@ class CalcDeployment extends JFrame implements ActionListener{
 		//if the variable is a number
 		if (((s.charAt(0) >= '0' && s.charAt(0) <= '9') || (s.charAt(0) == '.'))){
 			// if operand is present then add to second num
+
+				if( !s1.equals("")) {
+					//if s2 is longer than 8 ignore the other digits
+					if(s2.length() > 8) {
+					
+					}
+					else {
+						s2 = s2 + s;
+					}
+				}
+				else {
+					// if s0 is longer than 8 ignore the other digits
+					if(s0.length() > 8) {
+						
+					}
+					else{
+						s0 = s0 +s;
+					}
+				}
+				// set the value of text
+				field1.setText(s0 + s1 + s2);
 			
-			if( !s1.equals("")) {
-				s2 = s2 + s;
-			}
-			else {
-				s0 = s0 +s;
-			}
-			// set the value of text
-			field1.setText(s0 + s1 + s2);
 		}
 		else if(s.charAt(0) == 'C') {
 			//clear one letter
@@ -155,7 +168,9 @@ class CalcDeployment extends JFrame implements ActionListener{
 		else if (s.charAt(0) == '=') {
 			
 			double var;
+			String var2; 
 			// store the value in 1rst
+			
 			if (s1.equals("+")) {
 				var = (Double.parseDouble(s0) + Double.parseDouble(s2));
 			}
@@ -169,15 +184,17 @@ class CalcDeployment extends JFrame implements ActionListener{
 			else {
 				var = (Double.parseDouble(s0) * Double.parseDouble(s2));
 			}
-			
-			// set the value of text
-			field1.setText(s0 + s1 + s2 + "=" + var);
-			
-			// convert it to string
-			
-			s0 = Double.toString(var);
-			
-			s1 = s2 = "";
+			var2 = Double.toString(var);
+			if(var2.length() < 8 ) {
+				// set the value of text
+				field1.setText(s0 + s1 + s2 + "=" + var);
+				// convert it to string
+				s0 = Double.toString(var);
+				s1= s2 = "";
+			}
+			else {
+				field1.setText("ERR");
+			}
 		}
 		else {
 			// if there isn't an operand
